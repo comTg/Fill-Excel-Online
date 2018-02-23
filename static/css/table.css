@@ -1,0 +1,22 @@
+html, body {
+    color: #505050;
+    line-height: 1.75em;
+    /*background: #ebebeb;*/
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+}
+
+.main-content {
+    box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+    margin: 1rem 0em;
+    padding: 1em 1em;
+    border-radius: 0.28571429rem;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+}
+.main-content.fork{
+    text-align:center;
+}
+ul{
+   margin: 1rem 0em;
+    padding: 1em 1em;
+}
