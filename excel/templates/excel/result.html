@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="main-content fork">
-        <p class="text-info text-center">{{ result_info }}</p>
+        <h4 class="text-info text-center">{{ result_info }},自动跳转<span id="sp" class="label label-info"></span></h4>
         <a href="./table" class="btn btn-info">首页</a>
     </div>
 </div>
@@ -31,6 +31,21 @@
 {#<script src={% static 'js/bootstrap.js' %}></script>#}
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    var x = 5; //利用了全局变量来执行
+    function go() {
+        x--;
+        if (x > 0) {
+            $('#sp').html(x);  //每次设置的x的值都不一样了。
+        } else {
+            location.href = '/table';
+        }
+    }
+    $(function () {
+        $('#sp').html(x);
+        setInterval(go, 1000);
+    });
+</script>
 </body>
 
 </html>

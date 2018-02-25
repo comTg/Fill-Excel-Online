@@ -1,16 +1,24 @@
 from django.contrib import admin
 
-from .models import PostCount,Table
+from .models import PostCount, Table
+
 
 class PostCountAdmin(admin.ModelAdmin):
-    list_display = ('ip','title','times',)
+    list_display = (
+        'ip',
+        'title',
+        'times',
+        'pub_time',
+    )
+    list_filter = ('pub_time', )
+
 
 class TableAdmin(admin.ModelAdmin):
-    list_display = ('title','field','show','count')
+    list_display = ('title', 'field', 'show', 'count')
 
 
-admin.site.register(PostCount,PostCountAdmin)
-admin.site.register(Table,TableAdmin)
+admin.site.register(PostCount, PostCountAdmin)
+admin.site.register(Table, TableAdmin)
 
 # Register your models here.
 

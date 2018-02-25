@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.utils import timezone
 
-from django.http.request import QueryDict
+from datetime import datetime
 
 from . import models
 from .tools import new_excel,write_to_excel,get_ip,read_from_excel
@@ -35,7 +36,6 @@ def form_action(request):
     ip = get_ip(request)
     post_count = models.PostCount.objects.get_or_create(ip=ip,title=table.title)[0]
     times = post_count.times
-    print(times,type(times))
     if(times<2):
         fields = table.field.split(',')
         items = request.POST.items()
@@ -46,11 +46,12 @@ def form_action(request):
             write_to_excel(title,items)
             result_info = '提交成功'
             post_count.times += 1
+            post_count.pub_time = timezone.now()
             post_count.save()
         else:
             result_info = '提交的表单标题与库中表不一致,请重新提交'
     else:
-        result_info = '提交失败,可能是因为提交次数过多,count={}'.format(times)
+        result_info = '提交失败,可能是因为提交次数过多 > 提交{}次'.format(times)
     context = {
         'result_info':result_info,
     }
