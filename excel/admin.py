@@ -7,7 +7,7 @@ class PostCountAdmin(admin.ModelAdmin):
     list_display = (
         'ip',
         'title',
-        'times',
+        'rows',
         'pub_time',
     )
     list_filter = ('pub_time', )

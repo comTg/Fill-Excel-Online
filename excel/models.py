@@ -23,6 +23,6 @@ class Table(models.Model):
 
 class PostCount(models.Model):
     ip = models.TextField(default=0)
-    times = models.IntegerField(default=0)
+    rows = models.IntegerField(default=0)
     title = models.TextField()
     pub_time = models.DateTimeField(null=True)

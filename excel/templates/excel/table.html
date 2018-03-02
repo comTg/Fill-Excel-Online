@@ -1,82 +1,91 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>请填表</title>
-    {#  <link rel="stylesheet" href={% static 'css/semantic.css' %}>#}
-    {#  <script src={% static 'js/jquery.min.js' %}></script>#}
-    {#  <script src={% static 'js/semantic.js' %}></script>#}
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-    {#    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">#}
+    {# <link rel="stylesheet" href={% static 'css/semantic.css' %}> #} 
+    {# <script src={% static 'js/jquery.min.js' %}></script> #} 
+    {# <script src={% static 'js/semantic.js' %}></script> #}
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
+    {# <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> #}
     <link rel="stylesheet" href="{% static 'css/table.css' %}">
 
 
 </head>
 
 <body>
-<div class="container">
-    <form class="main-content" method="post" action="../post" id="tableform">
-        {% csrf_token %}
-        <div class="row">
-            <h3 class="text-center"><strong>{{ title }}</strong></h3>
-            <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                请按照表单内容填写,提交后无法修改.
-            </div>
-        </div>
-        <input type="hidden" name="{{ title }}">
-        <div class="row">
-            {% for field in fields %}
-                <div class="form-group col-md-4">
-                    <label for="field">{{ field }}</label>
-                    <input type="text" class="form-control" placeholder="{{ field }}" name="{{ field }}">
+    <div class="container">
+        <form class="main-content" method="post" action="../post" id="tableform">
+            {% csrf_token %}
+            <div class="row">
+                <h3 class="text-center">
+                    <strong>{{ title }}</strong>
+                </h3>
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    请按照表单内容填写,提交后无法修改.
                 </div>
-            {% endfor %}
-        </div>
-        <div class="form-group text-right">
-            <button class="btn btn-primary" type="submit" id="submit">提交</button>
-        </div>
-    </form>
-    {% if isShow %}
-        {% for items in exists_value %}
-            <hr>
-            <ul class="list-group row">
-                {% for key,value in items.items %}
-                    <li class="list-group-item col-md-3">
-                        <span class="label label-default">{{ key }}</span>
-                        {{ value }}
-                    </li>
+            </div>
+            <input type="hidden" name="{{ table_id }}" value="{{ title }}">
+            <div class="row">
+                {% for key,value in value_dict.items %}
+                <div class="form-group col-md-4">
+                    <label for="field">{{ key }}</label>
+                    <input type="text" class="form-control" placeholder="{{ key }}" name="{{ key }}" value="{{ value }}">
+                </div>
                 {% endfor %}
-            </ul>
-        {% endfor %}
-    {% endif %}
-</div>
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-primary" type="submit" id="submit">提交</button>
+            </div>
+        </form>
+        {% if isShow %}
+        <hr>
+        <table class="table table-striped">
+            <caption>{{ title }}</caption>
+            <thead>
+                <tr>
+                    {% for field in fields %}
+                    <th>{{ field }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for items in exists_value %}
+                <tr>
+                    {% for key,value in items.items %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 
-{#<script src={% static 'js/jquery.min.js' %}></script>#}
-{#<script src={% static 'js/bootstrap.js' %}></script>#}
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script>
-    $(function () {
-        $().alert();
-        $("#submit").click(function (e) {
-            {% for field in fields %}
+    <script>
+        $(function () {
+            $("#submit").click(function (e) {
+                {% for field in fields %}
                 if ($('input[name="{{ field }}"]').val() == "") {
                     alert('{{ field }}不能为空!');
                     e.preventDefault();
                     return;
                 }
-            {% endfor %}
-        });
+                {% endfor %}
+            });
 
-    });
-</script>
+        });
+    </script>
 </body>
 
 </html>

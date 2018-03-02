@@ -69,28 +69,38 @@ def read_from_excel(title):
     else:
         return None
 
-def write_to_excel(title,results):
-    try:
-        file_path = get_file_path(title)
+def read_one_row(title,row):
+    file_path = get_file_path(title)
+    if os.path.exists(file_path):
         data = open_excel(title)
         table = data.sheet_by_name('Sheet1')
+        one_row = table.row_values(row) # 获得第row+1行的内容
+        return one_row
+    else:
+        return None
+def write_to_excel(title,results,rows):
+    try:
+        file_path = get_file_path(title)    # 根据标题找到文件地址
+        data = open_excel(title)    # 打开excel文件
+        table = data.sheet_by_name('Sheet1')    # 打开表
         nrows = table.nrows # 获得行数
         book = copy(data) # 将xlrd打开的excel文件转换成xlwt可读写的文件
         sheet1 = book.get_sheet(0)
         column_count = 0
+        mark_row = nrows if rows==0 else rows
         for key,value in results:
-            sheet1.write(nrows,column_count,value)
+            sheet1.write(mark_row,column_count,value)
             column_count += 1
         book.save(file_path)
         print('数据保存到excel成功!')
+        return mark_row
     except Exception:
         print('保存数据到excel时发生错误-write_to_excel')
 
 if __name__ == '__main__':
-    title = '测试标题-2'
-    results = read_from_excel(title)
-    for result in results:
-        print(result)
+    title = '测试标题-test'
+    results = read_one_row(title,2)
+    print(results)
 
 
 
