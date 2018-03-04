@@ -14,7 +14,7 @@ class Article(models.Model):
 class Table(models.Model):
     show = models.SmallIntegerField(default=0)
     title = models.TextField(null=False)
-    count = models.IntegerField(default=1)
+    expired = models.IntegerField(default=0)
     field = models.TextField()
 
     def __str__(self):
@@ -25,4 +25,5 @@ class PostCount(models.Model):
     ip = models.TextField(default=0)
     rows = models.IntegerField(default=0)
     title = models.TextField()
+    counts = models.IntegerField(default=0)
     pub_time = models.DateTimeField(null=True)

@@ -10,7 +10,7 @@
     {# <link rel="stylesheet" href={% static 'css/semantic.css' %}> #} 
     {# <script src={% static 'js/jquery.min.js' %}></script> #} 
     {# <script src={% static 'js/semantic.js' %}></script> #}
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {# <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> #}
     <link rel="stylesheet" href="{% static 'css/table.css' %}">
 
@@ -20,6 +20,7 @@
 <body>
     <div class="container">
         <form class="main-content" method="post" action="../post" id="tableform">
+            <a href="/"><span class="home glyphicon glyphicon-home"></span></a>
             {% csrf_token %}
             <div class="row">
                 <h3 class="text-center">
@@ -51,8 +52,8 @@
             <caption>{{ title }}</caption>
             <thead>
                 <tr>
-                    {% for field in fields %}
-                    <th>{{ field }}</th>
+                    {% for key,value in value_dict.items %}
+                    <th>{{ key }}</th>
                     {% endfor %}
                 </tr>
             </thead>

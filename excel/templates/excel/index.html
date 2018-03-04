@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+<div class="nav-bar container">
+    <div class="nav-ul pull-right">
+        <a href="#">首页<span>/</span></a>
+        <a href="/download">下载<span>/</span></a>
+        <a href="/admin">管理员</a>
+    </div>
+</div>
+<div class="container content">
+    <div class="domain h2">index</div>
+    <div class="center-block">
+            {% for item in tableinfos %}
+                <ul class="list-inline info-ul">
+                <li class="fade in" tooltip-placement="top"
+                    tooltip-popup-delay="200" data-toggle="tooltip"
+                    data-placement="top" title="{{ item.title }}"><a href="/table/{{ item.id }}">{{ item.id }} .</a>
+                </li>
+                <li class="fade in" tooltip-placement="top"
+                    tooltip-popup-delay="200" data-toggle="tooltip"
+                    data-placement="top" title="{{ item.title }}"><a href="/table/{{ item.id }}">{{ item.title }}</a>
+                </li>
+                <li>{% if item.expired %}
+                    <span class="text-danger">已过期</span>
+                {% else %}
+                    <span class="text-muted">正在编辑中</span>
+                {% endif %}
+                </li>
+                </ul>
+            {% endfor %}
+    </div>
+</div>
+<div class="footer"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>
+</html>

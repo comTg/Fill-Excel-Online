@@ -6,9 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>跳转结果</title>
-    {#  <link rel="stylesheet" href={% static 'css/semantic.css' %}>#}
-    {#  <script src={% static 'js/jquery.min.js' %}></script>#}
-    {#  <script src={% static 'js/semantic.js' %}></script>#}
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     {#    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">#}
@@ -22,7 +19,7 @@
 <div class="container">
     <div class="main-content fork">
         <h4 class="text-info text-center">{{ result_info }},自动跳转<span id="sp" class="label label-info"></span></h4>
-        <a href="./table" class="btn btn-info">首页</a>
+        <a href="./table/{{ table_id }}" class="btn btn-info">返回</a>
     </div>
 </div>
 
@@ -38,7 +35,7 @@
         if (x > 0) {
             $('#sp').html(x);  //每次设置的x的值都不一样了。
         } else {
-            location.href = '/table';
+            location.href = '/table/{{ table_id }}';
         }
     }
     $(function () {

@@ -6,22 +6,28 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>跳转结果</title>
+    <title>下载列表</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/table.css' %}">
-
 
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="main-content fork">
-            <h4 class="text-center">{{ file_name }}
-            </h4>
-            <button class="btn btn-info" id="download">下载</button>
-        </div>
+<div class="container">
+    <div class="only-main">
+        <h3 class="text-center">下载列表</h3>
+        <ul class="list-group">
+            {% for title in titles %}
+                <li class="list-group-item">
+                    {{ title }}.xls
+                    <a class="btn btn-info pull-right make-middle" id="download-test" href="./{{ title }}.xls">下载</a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
+</div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
